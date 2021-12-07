@@ -49,4 +49,4 @@ jobs:
           remote-host: "crism-services.xyz"
           remote-user: ${{ secrets.SSH_USER }}
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          remote-path: "/var/www"
+          remote-path: "/var/www/html"
