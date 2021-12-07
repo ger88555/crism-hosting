@@ -47,6 +47,6 @@ jobs:
         with:
           remote-protocol: "sftp"
           remote-host: "crism-services.xyz"
-          remote-user: ${{ secrets.SSH_USER }}
+          remote-user: "mask"
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           remote-path: "/var/www/html"
