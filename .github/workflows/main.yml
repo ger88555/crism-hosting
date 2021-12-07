@@ -42,13 +42,26 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: "Deploy"
-        uses: milanmk/actions-file-deployer@master
-        with:
-          remote-protocol: "sftp"
-          remote-host: "crism-services.xyz"
-          remote-user: "mask"
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          remote-path: "/var/www/html"
+#       - name: "Deploy"
+#         uses: milanmk/actions-file-deployer@master
+#         with:
+#           remote-protocol: "sftp"
+#           remote-host: "crism-services.xyz"
+#           remote-user: "mask"
+#           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+#           remote-path: "/var/www/html"
           
-          debug: true
+#           debug: true
+      - name: Deploy
+        uses: actions/checkout@v1
+      - run: 'echo "$SSH_PPK" > the_key'
+        shell: bash
+        env:
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: git-ftp push
+        uses: hrsetyono/git-sftp-action@v4
+        with:
+          url: "sftp://example.com/path/to/website"
+          user: "mask"
+          options: "--key /the_key --auto-init"
+
