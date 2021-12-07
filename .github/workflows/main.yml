@@ -59,7 +59,7 @@ jobs:
         env:
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: git-ftp push
-        uses: hrsetyono/git-sftp-action@v4
+        uses: fabeabe/git-sftp-action@1.1.1
         with:
           url: "sftp://example.com/path/to/website"
           user: "mask"
