@@ -61,7 +61,7 @@ jobs:
       - name: git-ftp push
         uses: fabeabe/git-sftp-action@1.1.1
         with:
-          url: "sftp://example.com/path/to/website"
+          url: "sftp://crism-services.xyz"
           user: "mask"
-          options: "--key /the_key --auto-init"
+          options: "--key /the_key --auto-init --remote-root='/var/www/html'"
 
