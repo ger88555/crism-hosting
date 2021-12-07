@@ -31,6 +31,8 @@
             /*====================================
              WRITE YOUR   SCRIPTS  BELOW
             ======================================*/
+            
+            highlightActiveLink();
 
 
 
@@ -45,6 +47,14 @@
         mainApp.custom_fun();
 
     });
+
+    function highlightActiveLink() {
+        const uri = location.pathname;
+
+        $('a', '.nav')
+            .filter(function () { return uri.includes( $(this).attr('href') ) })
+            .addClass('active-menu-item');
+    }
 }(jQuery));
 
 
