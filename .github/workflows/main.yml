@@ -51,17 +51,14 @@ jobs:
 #           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 #           remote-path: "/var/www/html"
           
-#           debug: true
-      - name: Deploy
-        uses: actions/checkout@v1
-      - run: 'echo "$SSH_PPK" > the_key'
-        shell: bash
-        env:
-          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      - name: git-ftp push
-        uses: fabeabe/git-sftp-action@1.1.1
+#           debug: truesteps:
+      - name: "SFTP Deploy"
+        uses: bunyod545/SB.SftpDeployAction@v1.7
         with:
-          url: "sftp://crism-services.xyz"
-          user: "mask"
-          options: "--key /the_key --auto-init --remote-root='/var/www/html'"
+          username: 'mask'
+          server: "crism-services.xyz"
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }} 
+          local_path: './'
+          remote_path: '/var/www/html'
+          args: '-o LogLevel=DEBUG'
 
