@@ -32,7 +32,9 @@
              WRITE YOUR   SCRIPTS  BELOW
             ======================================*/
             
-            highlightActiveLink();
+            highlight_active_link();
+            setup_ftp_info();
+            setup_copy_buttons();
 
 
 
@@ -48,12 +50,38 @@
 
     });
 
-    function highlightActiveLink() {
+    function highlight_active_link() {
         const uri = location.pathname;
 
         $('a', '.nav')
             .filter(function () { return uri.includes( $(this).attr('href') ) })
             .addClass('active-menu-item');
+    }
+
+    function setup_ftp_info() {
+        const domain = $('#domain', '.ftp-info'), password = $('#password', '.ftp-info'), toggleBtn = $('#togglePassword', '.ftp-info');
+
+        $(domain).val(location.host || 'localhost');
+        
+        $(toggleBtn).click(function () {
+            const current = $(password).attr('type');
+
+            $(password).attr('type', current === 'text' ? 'password' : 'text');
+        });
+    }
+
+    function setup_copy_buttons() {
+        const buttons = $('.copy');
+
+        $(buttons).click(function () {
+            const field = $(this).parents('.input-group').find('input');
+
+            navigator.clipboard.writeText($(field).val());
+
+            $(this).find('i.fa').toggleClass('fa-clipboard').toggleClass('fa-check');
+
+            setTimeout(() => $(this).find('i.fa').toggleClass('fa-clipboard').toggleClass('fa-check'), 800);
+        });
     }
 }(jQuery));
 
