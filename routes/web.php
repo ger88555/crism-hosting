@@ -20,3 +20,9 @@ Route::name('frontoffice.')->group(function() {
     Route::view('/pricing', 'frontoffice.pricing.index')->name('pricing');
     Route::view('/ftp', 'frontoffice.ftp.index')->name('ftp');
 });
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';

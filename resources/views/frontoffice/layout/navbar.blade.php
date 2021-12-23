@@ -16,9 +16,22 @@
                 <li><a href="{{ route('frontoffice.pricing') }}">Planes</a></li>
                 {{-- <li><a href="{{ route('frontoffice.ftp') }}">Subida FTP</a></li> --}}
                 @auth
-                    <li><a href="{{ route('frontoffice.blank') }}">Mi Cuenta</a></li>
+                    <li><a href="{{ route('frontoffice.blank') }}">Mi Sitio</a></li>
+
+
+                    <!-- Authentication -->
+                    <li><form id="logout" method="POST" action="{{ route('logout') }}">
+                        @csrf
+                    </form>
+                        <a href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                            document.getElementById('logout').submit();">
+                                {{ __('Log Out') }}
+                        </a>
+                    </li>
                 @else
-                    <li><a href="{{ route('frontoffice.blank') }}">Iniciar Sesión</a></li>
+                    <li><a href="{{ route('login') }}">Iniciar Sesión</a></li>
+                    <li><a href="{{ route('register') }}">Registrarse</a></li>
                 @endauth
             </ul>
         </div>
