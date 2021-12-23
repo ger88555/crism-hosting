@@ -16,7 +16,7 @@
                 <li><a href="{{ route('frontoffice.pricing') }}">Planes</a></li>
                 {{-- <li><a href="{{ route('frontoffice.ftp') }}">Subida FTP</a></li> --}}
                 @auth
-                    <li><a href="{{ route('frontoffice.blank') }}">Mi Sitio</a></li>
+                    <li><a href="{{ route('customer.dashboard') }}">Mi Sitio</a></li>
 
 
                     <!-- Authentication -->
