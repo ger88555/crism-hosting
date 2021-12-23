@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PlanFactory extends Factory
 {
-    const GB = 1e9;
+    const GB = 1000;
 
     /**
      * Define the model's default state.

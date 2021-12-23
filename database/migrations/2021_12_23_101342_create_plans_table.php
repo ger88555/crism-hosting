@@ -22,7 +22,7 @@ class CreatePlansTable extends Migration
             $table->boolean('domain')->default(false);
             $table->boolean('hosting')->default(false);
 
-            $table->float('hosting_space')->default(0)->comment('Offered hosting space in bytes.');
+            $table->float('hosting_space')->default(0)->comment('Offered hosting space in MB.');
             $table->timestamps();
         });
     }
