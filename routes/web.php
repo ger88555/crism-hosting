@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 use App\Http\Controllers\SelectedPlanController;
+use App\Http\Controllers\ShowCustomerDashboardController;
 
 Route::name('frontoffice.')->group(function() {
     Route::view('/', 'frontoffice.home.index')->name('home');
@@ -24,7 +25,7 @@ Route::name('frontoffice.')->group(function() {
 });
 
 Route::name('customer.')->middleware('auth:customer')->group( function () {
-    Route::view('/dashboard', 'backoffice.customer.dashboard')->name('dashboard');
+    Route::get('/dashboard', ShowCustomerDashboardController::class)->name('dashboard');
     
     Route::name('plans.')->prefix('/plans')->group(function () {
         Route::get('/', [SelectedPlanController::class, 'create'])->name('create');
