@@ -25,11 +25,17 @@ Route::name('frontoffice.')->group(function() {
 });
 
 Route::name('customer.')->middleware('auth:customer')->group( function () {
-    Route::get('/dashboard', ShowCustomerDashboardController::class)->name('dashboard');
-    
-    Route::name('plans.')->prefix('/plans')->group(function () {
-        Route::get('/', [SelectedPlanController::class, 'create'])->name('create');
-        Route::post('/{plan}', [SelectedPlanController::class, 'store'])->name('store');
+
+    Route::middleware('plan:true')->group(function () {
+        Route::get('/dashboard', ShowCustomerDashboardController::class)->name('dashboard');
+    });
+
+    Route::middleware('plan:false')->group(function () {    
+        
+        Route::name('plans.')->prefix('/plans')->group(function () {
+            Route::get('/', [SelectedPlanController::class, 'create'])->name('create');
+            Route::post('/{plan}', [SelectedPlanController::class, 'store'])->name('store');
+        });
     });
 });
 

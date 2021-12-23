@@ -14,10 +14,6 @@ class ShowCustomerDashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        if (auth('customer')->user()->plan_id === null) {
-            return redirect('/plans');
-        }
-
         return view('backoffice.customer.dashboard');
     }
 }
