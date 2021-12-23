@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::domain(config('app.url'))->name('frontoffice.')->group(function() {
+    Route::view('/', 'frontoffice.home.index')->name('home');
+    Route::view('/about', 'frontoffice.about.index')->name('about');
+    Route::view('/blank', 'frontoffice.blank.index')->name('blank');
+    Route::view('/pricing', 'frontoffice.pricing.index')->name('pricing');
+    Route::view('/ftp', 'frontoffice.ftp.index')->name('ftp');
 });

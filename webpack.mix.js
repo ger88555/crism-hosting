@@ -11,7 +11,17 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+mix
+    // Frontoffice assets
+    .scripts('resources/assets/frontoffice/css/*.css', 'public/css/frontoffice.css')
+    .scripts([
+        'resources/assets/frontoffice/js/jquery-1.11.1.js',
+        'resources/assets/frontoffice/js/bootstrap.js',
+        'resources/assets/frontoffice/js/custom.js',
+    ], 'public/js/frontoffice.js')
+    .copyDirectory('resources/assets/frontoffice/img', 'public/frontoffice/img')
+    .copyDirectory('resources/assets/frontoffice/fonts', 'public/frontoffice/fonts')
+
+    // Backoffice assets
+    .js('resources/assets/backoffice/js/app.js', 'public/js')
+    .postCss('resources/assets/backoffice/css/app.css', 'public/css');

@@ -1,0 +1,22 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
+    "/css/frontoffice.css": "/css/frontoffice.css",
+    "/js/frontoffice.js": "/js/frontoffice.js",
+    "/frontoffice/img/about1.jpg": "/frontoffice/img/about1.jpg",
+    "/frontoffice/img/about2.jpg": "/frontoffice/img/about2.jpg",
+    "/frontoffice/img/about3.jpg": "/frontoffice/img/about3.jpg",
+    "/frontoffice/img/clients.png": "/frontoffice/img/clients.png",
+    "/frontoffice/img/header.jpg": "/frontoffice/img/header.jpg",
+    "/frontoffice/img/user.gif": "/frontoffice/img/user.gif",
+    "/frontoffice/img/user2.png": "/frontoffice/img/user2.png",
+    "/frontoffice/fonts/FontAwesome.otf": "/frontoffice/fonts/FontAwesome.otf",
+    "/frontoffice/fonts/fontawesome-webfont.eot": "/frontoffice/fonts/fontawesome-webfont.eot",
+    "/frontoffice/fonts/fontawesome-webfont.svg": "/frontoffice/fonts/fontawesome-webfont.svg",
+    "/frontoffice/fonts/fontawesome-webfont.ttf": "/frontoffice/fonts/fontawesome-webfont.ttf",
+    "/frontoffice/fonts/fontawesome-webfont.woff": "/frontoffice/fonts/fontawesome-webfont.woff",
+    "/frontoffice/fonts/glyphicons-halflings-regular.eot": "/frontoffice/fonts/glyphicons-halflings-regular.eot",
+    "/frontoffice/fonts/glyphicons-halflings-regular.svg": "/frontoffice/fonts/glyphicons-halflings-regular.svg",
+    "/frontoffice/fonts/glyphicons-halflings-regular.ttf": "/frontoffice/fonts/glyphicons-halflings-regular.ttf",
+    "/frontoffice/fonts/glyphicons-halflings-regular.woff": "/frontoffice/fonts/glyphicons-halflings-regular.woff"
+}
