@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::domain(config('app.url'))->name('frontoffice.')->group(function() {
+Route::name('frontoffice.')->group(function() {
     Route::view('/', 'frontoffice.home.index')->name('home');
     Route::view('/about', 'frontoffice.about.index')->name('about');
     Route::view('/blank', 'frontoffice.blank.index')->name('blank');
