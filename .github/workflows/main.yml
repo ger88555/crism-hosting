@@ -24,9 +24,24 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+        
+      - name: "Install NPM dependencies"
+        run: "npm ci"
+        
+      - name: "Compile Laravel Mix for production"
+        run: "npm run build"
           
       - name: "Discard .git folder"
         run: "rm -rf .git"
+          
+      - name: "Discard storage folder"
+        run: "rm -rf storage"
+          
+      - name: "Discard node_modules folder"
+        run: "rm -rf node_modules"
+          
+      - name: "Discard tests folder"
+        run: "rm -rf tests"
         
       - name: "SFTP Deploy"
         uses: bunyod545/SB.SftpDeployAction@v1.0
