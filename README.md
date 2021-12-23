@@ -10,7 +10,7 @@
 # crism-hosting
 CRISM Hosting Services Website
 
-<a href="http://crism-services.xyz">Go to Live Website!</a>
+<a href="http://crism-services.xyz" target="blank">Go to Live Website!</a>
 
 ## About Laravel
 
