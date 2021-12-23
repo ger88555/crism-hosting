@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Http\Controllers\SelectedPlanController;
+
 Route::name('frontoffice.')->group(function() {
     Route::view('/', 'frontoffice.home.index')->name('home');
     Route::view('/about', 'frontoffice.about.index')->name('about');
@@ -23,6 +25,11 @@ Route::name('frontoffice.')->group(function() {
 
 Route::name('customer.')->middleware('auth:customer')->group( function () {
     Route::view('/dashboard', 'backoffice.customer.dashboard')->name('dashboard');
+    
+    Route::name('plans.')->prefix('/plans')->group(function () {
+        Route::get('/', [SelectedPlanController::class, 'create'])->name('create');
+        Route::post('/{plan}', [SelectedPlanController::class, 'store'])->name('store');
+    });
 });
 
 require __DIR__.'/auth.php';
