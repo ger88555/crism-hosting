@@ -21,8 +21,8 @@ Route::name('frontoffice.')->group(function() {
     Route::view('/ftp', 'frontoffice.ftp.index')->name('ftp');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
+Route::name('customer.')->middleware('auth:customer')->group( function () {
+    Route::view('/dashboard', 'backoffice.customer.dashboard')->name('dashboard');
+});
 
 require __DIR__.'/auth.php';
