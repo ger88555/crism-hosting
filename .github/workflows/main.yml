@@ -20,38 +20,14 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-#       - name: SFTP Deploy
-#         # You may pin to the exact commit or the version.
-#         # uses: wlixcc/SFTP-Deploy-Action@28d6168ebf0707d5c118b3bbdfb831b56046127c
-#         uses: wlixcc/SFTP-Deploy-Action@v1.2.1
-#         with:
-#           # username
-#           username: ${{ secrets.SSH_USER }}
-#           # your sftp server
-#           server: crism-services.xyz
-#           # your sftp server port, default to 22
-#           port: 22
-#           # you can copy private_key from your *.pem file, keep format
-#           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-#           # will put all file under this path
-#           local_path: ./* # default is ./*
-#           # files will copy to under remote_path
-#           remote_path: /var/www/ # default is /
-#           args: '-o LogLevel=DEBUG'
       - name: "Checkout"
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-#       - name: "Deploy"
-#         uses: milanmk/actions-file-deployer@master
-#         with:
-#           remote-protocol: "sftp"
-#           remote-host: "crism-services.xyz"
-#           remote-user: "mask"
-#           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-#           remote-path: "/var/www/html"
           
-#           debug: truesteps:
+      - name: "Discard .git folder"
+        run: "rm -rf .git"
+        
       - name: "SFTP Deploy"
         uses: bunyod545/SB.SftpDeployAction@v1.0
         with:
