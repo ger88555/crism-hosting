@@ -31,6 +31,7 @@ return [
     ],
 
     'apache' => [
+        'domain' => preg_replace("/http[s]?:\/\//",'', env('APP_URL', 'http://localhost')),
         'conf' => [
             'httpd' => env('APACHE_HTTPD_FILE', 'httpd.conf'),
         ],
