@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Repositories\Contracts\DomainRepository;
+use App\Services\SystemCommandService;
 use Illuminate\Support\Facades\Storage;
 
 class ApacheDomainRepository extends DomainRepository
@@ -14,6 +15,8 @@ class ApacheDomainRepository extends DomainRepository
         $this->createVirtualHost();
 
         $this->includeVirtualHost();
+
+        $this->reloadApache();
     }
 
     /**
@@ -48,6 +51,16 @@ class ApacheDomainRepository extends DomainRepository
     protected function generateConfig($stub) : string
     {
         return view($stub, ['domain' => $this->domain->name ])->render();
+    }
+
+    /**
+     * Reload the Apache sites configuration without restarting Apache.
+     *
+     * @return void
+     */
+    protected function reloadApache()
+    {
+        app(SystemCommandService::class)->run("apachectl -k graceful");
     }
 
     public function destroy()

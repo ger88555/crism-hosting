@@ -3,9 +3,10 @@
 namespace Tests\Feature\Repositories;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Models\Domain;
 use App\Repositories\ApacheDomainRepository;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Domain;
+use App\Services\SystemCommandService;
 use Tests\TestCase;
 
 class ApacheDomainRepositoryTest extends TestCase
@@ -88,5 +89,19 @@ class ApacheDomainRepositoryTest extends TestCase
         $expectedZone = $expectedZone[1];
 
         $this->assertStringContainsString($includeStatement, $expectedZone);
+    }
+    
+    public function test_apache_reloaded()
+    {
+        // assert
+        $this->mock(SystemCommandService::class, function (\Mockery\MockInterface $mock) {
+            $mock
+                ->shouldReceive('run')
+                ->once()
+                ->andReturn(0);
+        });
+        
+        // act
+        $this->repository->create();
     }
 }
