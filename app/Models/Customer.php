@@ -33,4 +33,14 @@ class Customer extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function plan()
+    {
+        return $this->hasOne(Plan::class);
+    }
+
+    public function domain()
+    {
+        return $this->hasOne(Domain::class);
+    }
 }
