@@ -36,7 +36,7 @@ class Customer extends Authenticatable
 
     public function plan()
     {
-        return $this->hasOne(Plan::class);
+        return $this->belongsTo(Plan::class);
     }
 
     public function domain()

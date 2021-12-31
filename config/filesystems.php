@@ -53,6 +53,16 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
+        'apache' => [
+            'driver' => 'local',
+            'root' => env('APACHE_VHOSTS_DIR', '/etc/apache2/'),
+        ],
+
+        'hosting' => [
+            'driver' => 'local',
+            'root' => env('APACHE_SITES_DIR', '/var/www/html/'),
+        ],
+
     ],
 
     /*
