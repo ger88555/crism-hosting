@@ -43,4 +43,9 @@ class Customer extends Authenticatable
     {
         return $this->hasOne(Domain::class);
     }
+
+    public function hosting()
+    {
+        return $this->hasOne(Hosting::class);
+    }
 }

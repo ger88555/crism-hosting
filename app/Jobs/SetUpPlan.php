@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Repositories\Contracts\DomainRepository;
 use App\Models\{Plan, Customer};
+use App\Repositories\Contracts\HostingRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -47,9 +48,16 @@ class SetUpPlan implements ShouldQueue
      *
      * @return void
      */
-    public function handle(DomainRepository $domainRepository)
+    public function handle(DomainRepository $domainRepository, HostingRepository $hostingRepository)
     {
-        $this->customer->load('domain');
+        $this->customer->load('domain', 'hosting');
+
+        if ($this->plan->hosting) {
+            $hostingRepository->setHosting($this->customer->hosting);
+            $hostingRepository->create();
+            
+            $this->customer->hosting->update(['ready' => true]);
+        }
 
         if ($this->plan->domain) {
             $domainRepository->setDomain($this->customer->domain);
