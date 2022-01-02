@@ -1,4 +1,4 @@
-<Directory "{{  config('filesystems.hosting') . DIRECTORY_SEPARATOR . $domain . DIRECTORY_SEPARATOR . '/public' }}">
+<Directory "{{  config('filesystems.disks.hosting.root') . $domain . DIRECTORY_SEPARATOR . 'public' }}">
     DirectoryIndex index.php
     AllowOverride All
     Order allow,deny
