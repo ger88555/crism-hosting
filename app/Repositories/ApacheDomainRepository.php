@@ -12,9 +12,11 @@ class ApacheDomainRepository extends DomainRepository
 
     public function create()
     {
-        $this->createVirtualHost();
+        $this->createSite();
 
-        $this->includeVirtualHost();
+        // $this->includeVirtualHost();
+
+        $this->enableSite();
 
         $this->reloadApache();
     }
@@ -24,11 +26,11 @@ class ApacheDomainRepository extends DomainRepository
      *
      * @return void
      */
-    protected function createVirtualHost()
+    protected function createSite()
     {
         $vhost = $this->generateConfig('apache.vhost');
 
-        Storage::disk('apache')->put("conf/{$this->domain->name}.conf", $vhost);
+        Storage::disk('apache')->put("{$this->domain->name}.conf", $vhost);
     }
 
     /**
@@ -51,6 +53,16 @@ class ApacheDomainRepository extends DomainRepository
     protected function generateConfig($stub) : string
     {
         return view($stub, ['domain' => $this->domain->name ])->render();
+    }
+
+    /**
+     * Tell Apache to enable the site's configuration.
+     *
+     * @return void
+     */
+    protected function enableSite()
+    {
+        app(SystemCommandService::class)->run("a2enable {$this->domain->name}");
     }
 
     /**

@@ -56,7 +56,7 @@ class ApacheDomainRepositoryTest extends TestCase
     public function test_site_config_file_created()
     {
         // arrange
-        $expectedPath = "conf/{$this->domain->name}.conf";
+        $expectedPath = "{$this->domain->name}.conf";
         $expectedConf = view('apache.vhost', ['domain' => $this->domain->name])->render();
 
         // act
@@ -71,6 +71,8 @@ class ApacheDomainRepositoryTest extends TestCase
     
     public function test_site_config_file_included()
     {
+        $this->markTestSkipped();
+
         // arrange
         $includeStatement = view('apache.httpd', ['domain' => $this->domain->name])->render();
         $expectedPath = config('services.apache.conf.httpd');
@@ -91,17 +93,29 @@ class ApacheDomainRepositoryTest extends TestCase
         $this->assertStringContainsString($includeStatement, $expectedZone);
     }
     
-    public function test_apache_reloaded()
+    public function test_site_enabled()
     {
-        // assert
-        $this->mock(SystemCommandService::class, function (\Mockery\MockInterface $mock) {
-            $mock
-                ->shouldReceive('run')
-                ->once()
-                ->andReturn(0);
-        });
+        // prepare
+        $spy = $this->spy(SystemCommandService::class);
         
         // act
         $this->repository->create();
+
+        // assert
+        $spy->shouldHaveReceived('run', ["a2enable {$this->domain->name}"]);
+    }
+    
+    public function test_apache_reloaded()
+    {
+        // prepare
+        $spy = $this->spy(SystemCommandService::class);
+
+        // act
+        $this->repository->create();
+
+        // assert
+        $spy->shouldHaveReceived('run', function ($command) {
+            return str_contains($command, "apachectl");
+        });
     }
 }

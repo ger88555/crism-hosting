@@ -55,7 +55,7 @@ return [
 
         'apache' => [
             'driver' => 'local',
-            'root' => env('APACHE_VHOSTS_DIR', '/etc/apache2/'),
+            'root' => env('APACHE_VHOSTS_DIR', '/etc/apache2/sites-available/'),
         ],
 
         'hosting' => [
