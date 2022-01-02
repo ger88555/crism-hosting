@@ -15,6 +15,8 @@ class Plan extends Model
         'email'     => 'boolean',
         'vpn'       => 'boolean',
     ];
+    
+    protected $fillable = ['name', 'description', 'email', 'vpn', 'domain', 'hosting', 'hosting_space'];
 
     public function customers()
     {
