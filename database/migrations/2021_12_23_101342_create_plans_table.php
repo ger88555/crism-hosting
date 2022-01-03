@@ -16,7 +16,6 @@ class CreatePlansTable extends Migration
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description')->nullable();
             $table->boolean('email')->default(false);
             $table->boolean('vpn')->default(false);
             $table->boolean('domain')->default(false);

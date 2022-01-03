@@ -17,7 +17,6 @@ class PlanFactory extends Factory
     {
         return [
             'name'          => $this->faker->bs,
-            'description'   => $this->faker->randomHtml,
             'email'         => rand(0, 1),
             'vpn'           => rand(0, 1),
             'domain'        => rand(0, 1),

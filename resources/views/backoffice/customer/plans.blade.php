@@ -15,13 +15,47 @@
             <div class="grid grid-cols-3 gap-3">
                 @foreach ($plans as $plan)
                     <x-plan-card>
-                        <div class="grid justify-center">
-                            <h3 class="font-semibold text-x2">{{ $plan->name }}</h3>
+                        <div class="grid mb-3 justify-center">
+                            <h3 class="font-semibold text-xl">{{ $plan->name }}</h3>
                         </div>
 
                         <div class="grid justify-center">
                             <div class="container overflow-x-hidden">
-                                {!! $plan->description !!}
+                                <p>
+                                    @if ($plan->hosting) <x-check-mark /> @else <x-x-mark /> @endif Hosting
+                                </p>
+                            </div>
+                        </div>
+
+                        @if ($plan->hosting)
+                            <div class="grid justify-center">
+                                <div class="container overflow-x-hidden">
+                                    Espacio: <span class="font-semibold">{{ $plan->hosting_space / 1000 }} GB</span>
+                                </div>
+                            </div>
+                        @endif
+
+                        <div class="grid justify-center">
+                            <div class="container overflow-x-hidden">
+                                <p>
+                                    @if ($plan->domain) <x-check-mark /> @else <x-x-mark /> @endif Dominio
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="grid justify-center">
+                            <div class="container overflow-x-hidden">
+                                <p>
+                                    @if ($plan->vpm) <x-check-mark /> @else <x-x-mark /> @endif VPN
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="grid justify-center">
+                            <div class="container overflow-x-hidden">
+                                <p>
+                                    @if ($plan->email) <x-check-mark /> @else <x-x-mark /> @endif Correo
+                                </p>
                             </div>
                         </div>
 
@@ -30,7 +64,7 @@
                                 <form method="POST" action="{{ route('customer.plans.store', $plan) }}">
                                     @csrf
                                     <x-button>
-                                        Seleccionar
+                                        Elegir Este Plan
                                     </x-button>
                                 </form>
                             </div>
