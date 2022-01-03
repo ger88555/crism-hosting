@@ -62,7 +62,7 @@ class ApacheDomainRepository extends DomainRepository
      */
     protected function enableSite()
     {
-        app(SystemCommandService::class)->run("a2enable {$this->domain->name}");
+        app(SystemCommandService::class)->run("a2ensite {$this->domain->name}");
     }
 
     /**

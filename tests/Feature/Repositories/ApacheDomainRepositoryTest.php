@@ -102,7 +102,7 @@ class ApacheDomainRepositoryTest extends TestCase
         $this->repository->create();
 
         // assert
-        $spy->shouldHaveReceived('run', ["a2enable {$this->domain->name}"]);
+        $spy->shouldHaveReceived('run', ["a2ensite {$this->domain->name}"]);
     }
     
     public function test_apache_reloaded()
