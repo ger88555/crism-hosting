@@ -13,6 +13,6 @@ class PlanSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Plan::factory(3)->create();
+        \App\Models\Plan::factory(3)->create(['hosting' => true]);
     }
 }
