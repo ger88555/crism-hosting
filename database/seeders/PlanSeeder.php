@@ -13,6 +13,8 @@ class PlanSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Plan::factory(3)->create(['hosting' => true]);
+        \App\Models\Plan::factory()->create(['hosting' => true, 'domain' => true, 'vpn' => false, 'email' => false]);
+        \App\Models\Plan::factory()->create(['hosting' => true, 'domain' => true, 'vpn' => true, 'email' => false]);
+        \App\Models\Plan::factory()->create(['hosting' => true, 'domain' => true, 'vpn' => true, 'email' => true]);
     }
 }
