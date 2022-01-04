@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Repositories\VSFTPRepository;
 use App\Repositories\ApacheDomainRepository;
 use App\Repositories\ApacheHostingRepository;
 use App\Repositories\Contracts\DomainRepository;
 use App\Repositories\Contracts\HostingRepository;
+use App\Repositories\Contracts\FTPRepository;
 use App\Services\SystemCommandService;
 use Illuminate\Support\ServiceProvider;
 
@@ -19,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
     public $bindings = [
         DomainRepository::class     => ApacheDomainRepository::class,
         HostingRepository::class    => ApacheHostingRepository::class,
+        FTPRepository::class        => VSFTPRepository::class,
     ];
 
     /**
