@@ -113,6 +113,11 @@ class MakeApacheSite extends Command
         $this->info($this->domain->name.'.'.config('services.apache.domain'));
         $this->newLine();
 
+        $this->warn("FTP:");
+        $this->info("\tUsername: {$this->hosting->username}");
+        $this->info("\tPassword: {$this->hosting->password}");
+        $this->newLine();
+
         $this->warn("Site conf file: ");
         $this->info(config('filesystems.disks.apache.root')."conf/{$this->domain->name}.conf");
         $this->warn("Apache conf file (will reference the site conf file): ");
