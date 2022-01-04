@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Repositories\Contracts\DomainRepository;
 use App\Models\{Plan, Customer};
+use App\Repositories\Contracts\FTPRepository;
 use App\Repositories\Contracts\HostingRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -48,13 +49,16 @@ class SetUpPlan implements ShouldQueue
      *
      * @return void
      */
-    public function handle(DomainRepository $domainRepository, HostingRepository $hostingRepository)
+    public function handle(DomainRepository $domainRepository, HostingRepository $hostingRepository, FTPRepository $ftpRepository)
     {
         $this->customer->load('domain', 'hosting');
 
         if ($this->plan->hosting) {
             $hostingRepository->setHosting($this->customer->hosting);
             $hostingRepository->create();
+
+            $ftpRepository->setHosting($this->customer->hosting);
+            $ftpRepository->create();
             
             $this->customer->hosting->update(['ready' => true]);
         }

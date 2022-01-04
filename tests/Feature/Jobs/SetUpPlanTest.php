@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Jobs;
 
-use App\Repositories\Contracts\{ DomainRepository, HostingRepository };
+use App\Repositories\Contracts\{ DomainRepository, HostingRepository, FTPRepository };
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\{ Customer, Plan, Domain, Hosting };
 use App\Jobs\SetUpPlan;
@@ -22,6 +22,33 @@ class SetUpPlanTest extends TestCase
     {
         parent::setUp();
     }
+
+    private function expectRepositoryToReceive($abstract, $method, $arg)
+    {
+        $this->mock($abstract, function (MockInterface $mock) use ($method, $arg) {
+            $mock
+                ->shouldReceive($method)
+                ->with(
+                    \Mockery::on(fn ($param) => $param->id === $arg->id)
+                )
+                ->once();
+                
+            $mock->shouldReceive('create')->once()->andReturn(null);
+        });
+    }
+
+    private function expectRepositoryNotToReceive($abstract, $method, $arg)
+    {
+        $this->mock($abstract, function (MockInterface $mock) use ($method, $arg) {
+            $mock
+                ->shouldNotReceive($method)
+                ->with(
+                    \Mockery::on(fn ($param) => $param->id === $arg->id)
+                );
+                
+            $mock->shouldNotReceive('create');
+        });
+    }
     
     public function test_domain_created_when_included_in_plan()
     {
@@ -31,16 +58,7 @@ class SetUpPlanTest extends TestCase
         $domain = Domain::factory()->create(['customer_id' => $customer]);
 
         // assert
-        $this->mock(DomainRepository::class, function (MockInterface $mock) use ($domain) {
-            $mock
-                ->shouldReceive('setDomain')
-                ->with(
-                    \Mockery::on(fn (Domain $param) => $param->id === $domain->id)
-                )
-                ->once();
-                
-            $mock->shouldReceive('create')->once()->andReturn(null);
-        });
+        $this->expectRepositoryToReceive(DomainRepository::class, 'setDomain', $domain);
 
         // act
         SetUpPlan::dispatchSync($customer);
@@ -57,15 +75,7 @@ class SetUpPlanTest extends TestCase
         $domain = Domain::factory()->create(['customer_id' => $customer]);
 
         // assert
-        $this->mock(DomainRepository::class, function (MockInterface $mock) use ($domain) {
-            $mock
-                ->shouldNotReceive('setDomain')
-                ->with(
-                    \Mockery::on(fn (Domain $param) => $param->id === $domain->id)
-                );
-                
-            $mock->shouldNotReceive('create');
-        });
+        $this->expectRepositoryNotToReceive(DomainRepository::class, 'setDomain', $domain);
 
         // act
         SetUpPlan::dispatchSync($customer);
@@ -83,16 +93,8 @@ class SetUpPlanTest extends TestCase
         $hosting = Hosting::factory()->create(['customer_id' => $customer, 'domain_id' => $domain]);
 
         // assert
-        $this->mock(HostingRepository::class, function (MockInterface $mock) use ($hosting) {
-            $mock
-                ->shouldReceive('setHosting')
-                ->with(
-                    \Mockery::on(fn (Hosting $param) => $param->id === $hosting->id)
-                )
-                ->once();
-                
-            $mock->shouldReceive('create')->once()->andReturn(null);
-        });
+        $this->expectRepositoryToReceive(HostingRepository::class, 'setHosting', $hosting);
+        $this->expectRepositoryToReceive(FTPRepository::class, 'setHosting', $hosting);
 
         // act
         SetUpPlan::dispatchSync($customer);
@@ -110,15 +112,8 @@ class SetUpPlanTest extends TestCase
         $hosting = Hosting::factory()->create(['customer_id' => $customer, 'domain_id' => $domain]);
 
         // assert
-        $this->mock(HostingRepository::class, function (MockInterface $mock) use ($hosting) {
-            $mock
-                ->shouldNotReceive('setHosting')
-                ->with(
-                    \Mockery::on(fn (Hosting $param) => $param->id === $hosting->id)
-                );
-                
-            $mock->shouldNotReceive('create');
-        });
+        $this->expectRepositoryNotToReceive(HostingRepository::class, 'setHosting', $hosting);
+        $this->expectRepositoryNotToReceive(FTPRepository::class, 'setHosting', $hosting);
 
         // act
         SetUpPlan::dispatchSync($customer);
