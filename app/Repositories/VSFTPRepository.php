@@ -45,7 +45,7 @@ class VSFTPRepository extends FTPRepository
      */
     protected function createUser()
     {
-        app(SystemCommandService::class)->run("adduser {$this->hosting->username}");
+        app(SystemCommandService::class)->run("useradd {$this->hosting->username}");
     }
 
     /**
