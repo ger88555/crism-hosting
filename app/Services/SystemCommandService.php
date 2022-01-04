@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Exceptions\SystemCommandException;
+use Illuminate\Support\Facades\Log;
 
 /**
  * A test-friendly shell execution wrapper.
@@ -18,9 +19,13 @@ class SystemCommandService {
     public function run($command)
     {
         try {
+            Log::info("About to run: '$command'");
             if (config('app.env') === 'testing') return 0;
             
-            return `$command`;
+            $output = `$command`;
+            Log::info("Output for '$command':\n$output\n");
+
+            return $output;
 
         } catch (\Throwable $th) {
             throw new SystemCommandException($th->getMessage(), $th->getCode(), $th);
