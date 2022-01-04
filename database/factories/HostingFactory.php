@@ -17,7 +17,7 @@ class HostingFactory extends Factory
     {
         return [
             'username'      => $this->faker->word . $this->faker->numerify('####'),
-            'password'      => $this->faker->password,
+            'password'      => $this->faker->numerify('########'),
             'space'         => rand(1, 10) * self::GB
         ];
     }
