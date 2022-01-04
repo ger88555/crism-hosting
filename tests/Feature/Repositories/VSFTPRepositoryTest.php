@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Repositories\VSFTPRepository;
 use App\Models\Hosting;
 use App\Services\SystemCommandService;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class VSFTPRepositoryTest extends TestCase
@@ -49,6 +50,8 @@ class VSFTPRepositoryTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        Storage::fake('hosting');
 
         $this->domain       = Domain::factory()->create();
         $this->hosting      = Hosting::factory()->create(['domain_id' => $this->domain]);

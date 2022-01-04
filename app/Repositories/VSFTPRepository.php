@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Repositories\Contracts\FTPRepository;
 use App\Services\SystemCommandService;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * VSFTPD FTP Repository
@@ -18,6 +19,8 @@ class VSFTPRepository extends FTPRepository
             $this->createUser();
 
             $this->setPassword();
+
+            $this->createHome();
         }
 
         $this->allowUser();
@@ -53,6 +56,22 @@ class VSFTPRepository extends FTPRepository
     protected function setPassword()
     {
         app(SystemCommandService::class)->run("echo -e \"{$this->hosting->password}\\n{$this->hosting->password}\" | passwd {$this->hosting->username}");
+    }
+
+    /**
+     * Create the home directory for this hosting's Unix user.
+     *
+     * @return void
+     */
+    protected function createHome()
+    {
+        $mounted = "/var/ftp/{$this->hosting->domain->name}";
+        app(SystemCommandService::class)->run("mkdir $mounted");
+
+        $site = Storage::disk('hosting')->path($this->hosting->domain->name);
+        app(SystemCommandService::class)->run("mount --bind $site $mounted/");
+
+        app(SystemCommandService::class)->run("usermod -d $mounted {$this->hosting->username}");
     }
 
     /**
