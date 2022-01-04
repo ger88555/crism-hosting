@@ -16,7 +16,7 @@ class HostingFactory extends Factory
     public function definition()
     {
         return [
-            'username'      => $this->faker->userName,
+            'username'      => $this->faker->word . $this->faker->numerify('####'),
             'password'      => $this->faker->password,
             'space'         => rand(1, 10) * self::GB
         ];
