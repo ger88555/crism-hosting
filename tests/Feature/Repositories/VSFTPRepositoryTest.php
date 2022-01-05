@@ -73,7 +73,7 @@ class VSFTPRepositoryTest extends TestCase
     public function test_doesnt_create_user_if_exists()
     {
         // prepare
-        $createCommand = "adduser {$this->hosting->username}";
+        $createCommand =  "useradd {$this->hosting->username}".' -p $(openssl passwd -6 '.$this->hosting->password.')';
         
         $this->mockExistsCommand(1);
 
@@ -87,7 +87,7 @@ class VSFTPRepositoryTest extends TestCase
     public function test_creates_user_if_doesnt_exist()
     {
         // prepare
-        $createCommand = "adduser {$this->hosting->username}";
+        $createCommand = "useradd {$this->hosting->username}".' -p $(openssl passwd -6 '.$this->hosting->password.')';
         
         $this->mockExistsCommand(0);
 
