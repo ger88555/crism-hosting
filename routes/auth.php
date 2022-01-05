@@ -25,4 +25,13 @@ Route::namespace('App\Http\Controllers\Auth')->group(function () {
             ->name('logout');
     });
 
+    Route::namespace('Admin')->group(function () {
+
+        Route::get('/log-in', 'AdminAuthenticatedSessionController@create')
+            ->middleware('guest')
+            ->name('log-in');
+    
+        Route::post('/log-in', 'AdminAuthenticatedSessionController@store')
+            ->middleware('guest');
+    }); 
 });
