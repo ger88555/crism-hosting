@@ -32,6 +32,7 @@
                 @else
                     <li><a href="{{ route('login') }}">Iniciar Sesión</a></li>
                     <li><a href="{{ route('register') }}">Registrarse</a></li>
+                    <li><a href="{{ route('log-in') }}">Admin</a></li>
                 @endauth
             </ul>
         </div>
