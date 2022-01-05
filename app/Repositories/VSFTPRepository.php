@@ -18,8 +18,6 @@ class VSFTPRepository extends FTPRepository
         if (false === $this->userExists()) {
             $this->createUser();
 
-            $this->setPassword();
-
             $this->createHome();
         }
 
@@ -45,17 +43,7 @@ class VSFTPRepository extends FTPRepository
      */
     protected function createUser()
     {
-        app(SystemCommandService::class)->run("useradd {$this->hosting->username}");
-    }
-
-    /**
-     * Create a Unix user for this hosting.
-     *
-     * @return void
-     */
-    protected function setPassword()
-    {
-        app(SystemCommandService::class)->run("echo -e \"{$this->hosting->password}\\n{$this->hosting->password}\" | passwd {$this->hosting->username}");
+        app(SystemCommandService::class)->run("useradd -p $(openssl passwd -1 {$this->hosting->password}) {$this->hosting->username}");
     }
 
     /**
