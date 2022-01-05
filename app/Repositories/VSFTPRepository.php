@@ -43,7 +43,7 @@ class VSFTPRepository extends FTPRepository
      */
     protected function createUser()
     {
-        app(SystemCommandService::class)->run( "useradd {$this->hosting->username} -p `openssl passwd -6 {$this->hosting->password}`");
+        app(SystemCommandService::class)->run("useradd {$this->hosting->username} -p \$(openssl passwd -6 {$this->hosting->password})");
     }
 
     /**
