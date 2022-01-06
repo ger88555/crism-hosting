@@ -46,7 +46,7 @@
                         <div class="grid justify-center">
                             <div class="container overflow-x-hidden">
                                 <p>
-                                    @if ($plan->vpn) <x-check-mark /> @else <x-x-mark /> @endif VPN
+                                    @if ($plan->wireguard) <x-check-mark /> @else <x-x-mark /> @endif VPN
                                 </p>
                             </div>
                         </div>
