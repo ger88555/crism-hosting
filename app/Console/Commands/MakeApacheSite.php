@@ -9,6 +9,7 @@ use App\Models\Hosting;
 use App\Models\Plan;
 use App\Models\Email;
 use App\Models\Admin;
+use App\Models\Wireguard;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
