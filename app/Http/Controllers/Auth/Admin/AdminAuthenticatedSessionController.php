@@ -33,4 +33,12 @@ class AdminAuthenticatedSessionController extends Controller {
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
+
+    public function destroy()
+    {
+        Auth::guard('admin')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
+    }
 }
