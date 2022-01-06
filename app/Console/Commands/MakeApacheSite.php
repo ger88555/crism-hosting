@@ -95,7 +95,7 @@ class MakeApacheSite extends Command
             $this->hosting  = Hosting::factory()->create(['customer_id' => $this->customer, 'domain_id' => $this->domain]);
             $this->email = Email::factory()->create(['customer_id' => $this->customer]);
             $this->admin = Admin::factory()->create();
-            $this->wireguard = Wireguard::factory()->create(['customer_id' => $this->customer]);
+            // $this->wireguard = Wireguard::factory()->create(['customer_id' => $this->customer]);
 
             DB::commit();
         } catch (\Throwable $th) {
@@ -144,7 +144,7 @@ class MakeApacheSite extends Command
         $this->warn("Wireguard: ");
         $this->info("\t pubkey ");
         $this->info("\t ip ");
-        $this->info(WireguardRepository($this->wireguard)->generateConfig());
+        // $this->info((new WireguardRepository($this->wireguard))->generateConfig());
         $this->warn("Email");
         $this->info("\tPassword: {$this->hosting->password}");
         $this->newLine();

@@ -51,7 +51,7 @@ class SetUpPlan implements ShouldQueue
      *
      * @return void
      */
-    public function handle(DomainRepository $domainRepository, HostingRepository $hostingRepository, FTPRepository $ftpRepository, MailAccountRepository $mailaccountRepository, WireguardRepository $wireguardRepository )
+    public function handle(DomainRepository $domainRepository, HostingRepository $hostingRepository, FTPRepository $ftpRepository, MailAccountRepository $mailaccountRepository)
     {
         $this->customer->load('domain', 'hosting','email', 'wireguard');
 
@@ -76,12 +76,14 @@ class SetUpPlan implements ShouldQueue
             
             $mailaccountRepository->setEmail($this->customer->email);
             $mailaccountRepository->create();
+            
+            $this->customer->email->update(['ready' => true]);
         }
 
-        if($this->plan->wireguard){
-            $wireguardRepository->setWireguard($this->customer->wireguard);
-            $wireguardRepository->registerPeer();
-        }
+        // if($this->plan->wireguard){
+        //     $wireguardRepository->setWireguard($this->customer->wireguard);
+        //     $wireguardRepository->registerPeer();
+        // }
 
     }
 }
