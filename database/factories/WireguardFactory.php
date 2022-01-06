@@ -14,7 +14,7 @@ class WireguardFactory extends Factory
     public function definition()
     {
         return [
-            'ip' => $this->faker->ipv4()->startingValue('10.0.0.30')
+            
         ];
     }
 }
