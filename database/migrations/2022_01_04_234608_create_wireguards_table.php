@@ -16,7 +16,8 @@ class CreateWireguardsTable extends Migration
         Schema::create('wireguards', function (Blueprint $table) {
             $table->id();
             $table->boolean('ready')->default(0)->comment('Wether the wireguard has been set up.');
-            $table->string('generated_public_key')->nullable();
+            $table->string('pubkey')->nullable();
+            $table->string('privkey')->nullable();
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->ipAddress('ip')->nullable();
             $table->timestamps();
