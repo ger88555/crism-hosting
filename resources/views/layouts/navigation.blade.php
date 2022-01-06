@@ -12,14 +12,25 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    @if (auth('customer')->user()->plan_id !== null)
-                        <x-nav-link :href="route('customer.dashboard')" :active="request()->routeIs('customer.dashboard')">
+                    @if (auth('customer')->user())
+                        
+                        
+                        @if (auth('customer')->user()->plan_id !== null)
+                            <x-nav-link :href="route('customer.dashboard')" :active="request()->routeIs('customer.dashboard')">
+                                {{ __('Dashboard') }}
+                            </x-nav-link>
+                        @else
+                            <x-nav-link :href="route('customer.plans.create')" :active="request()->routeIs('customer.plans.create')">
+                                {{ __('Plans') }}
+                            </x-nav-link>
+                        @endif
+
+                    @else
+                        
+                        <x-nav-link :href="route('adnub.dashboard')" :active="request()->routeIs('admin.dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
-                    @else
-                        <x-nav-link :href="route('customer.plans.create')" :active="request()->routeIs('customer.plans.create')">
-                            {{ __('Plans') }}
-                        </x-nav-link>
+                        
                     @endif
                 </div>
             </div>
