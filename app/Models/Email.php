@@ -9,7 +9,7 @@ class Email extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['username','password','customer_id','ready'];
+    protected $fillable = ['password','customer_id','ready'];
 
     protected $casts = [
         'ready' => 'boolean'
@@ -18,5 +18,15 @@ class Email extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    /**
+     * Get the username in the conventional e-mail address format.
+     *
+     * @return void
+     */
+    public function getFullAddressAttribute()
+    {
+        return $this->username.'@'.app('services.apache.domain');
     }
 }

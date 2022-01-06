@@ -48,4 +48,14 @@ class Customer extends Authenticatable
     {
         return $this->hasOne(Hosting::class);
     }
+
+    public function email()
+    {
+        return $this->hasOne(Email::class);
+    }
+
+    public function wireguard()
+    {
+        return $this->hasOne(Wireguard::class);
+    }
 }

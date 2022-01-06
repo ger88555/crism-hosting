@@ -17,11 +17,8 @@ class CreateEmailsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('customer_id')->nullable();
-            $table->string('username')->comment('email Credentials username.');
-            $table->string('password')->comment('email Credentials password.');
+            $table->string('password');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
-
-
             $table->boolean('ready')->default(0)->comment('Wether the email has been set up.');
 
         });

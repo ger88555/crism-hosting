@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Domain;
 use App\Models\Hosting;
 use App\Models\Plan;
+use App\Models\Email;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
@@ -47,6 +48,8 @@ class MakeApacheSite extends Command
      */
     protected $hosting;
 
+    protected $email;
+
     /**
      * Create a new command instance.
      *
@@ -84,6 +87,7 @@ class MakeApacheSite extends Command
             $this->customer = Customer::factory()->create(['plan_id' => $this->makeOrCreatePlan()]);
             $this->domain   = Domain::factory()->create(['customer_id' => $this->customer]);
             $this->hosting  = Hosting::factory()->create(['customer_id' => $this->customer, 'domain_id' => $this->domain]);
+            $this->email = Email::factory()->create(['customer_id' => $this->customer]);
 
             DB::commit();
         } catch (\Throwable $th) {
@@ -95,7 +99,7 @@ class MakeApacheSite extends Command
 
     protected function makeOrCreatePlan() : Plan
     {
-        $desiredFields = ['hosting' => true, 'domain' => true];
+        $desiredFields = ['hosting' => true, 'domain' => true, 'email' => true];
 
         return Plan::firstOrCreate($desiredFields, Plan::factory()->makeOne($desiredFields)->toArray());
     }
@@ -122,6 +126,10 @@ class MakeApacheSite extends Command
         $this->info(config('filesystems.disks.apache.root')."conf/{$this->domain->name}.conf");
         $this->warn("Apache conf file (will reference the site conf file): ");
         $this->info(config('filesystems.disks.apache.root').config('services.apache.conf.httpd'));
+        $this->newLine();
+
+        $this->warn("Email");
+        $this->info("\tPassword: {$this->hosting->password}");
         $this->newLine();
 
         $this->warn("Site folder: ");
