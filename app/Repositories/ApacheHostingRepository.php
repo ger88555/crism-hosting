@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Storage;
 
 class ApacheHostingRepository extends HostingRepository
 {
-    const CONFIG_CLOSING_TAG = "</IfModule>";
-
     public function create()
     {
         $this->hosting->load('domain', 'customer');
