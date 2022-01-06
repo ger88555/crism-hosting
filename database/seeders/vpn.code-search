@@ -1,0 +1,48 @@
+# Query: vpn
+# ContextLines: 1
+
+14 results - 5 files
+
+package-lock.json:
+   7812              "resolved": "https://registry.npmjs.org/resolve-cwd/-/resolve-cwd-3.0.0.tgz",
+   7813:             "integrity": "sha512-OrZaX2Mb+rJCpH/6CpSqt9xFVpN++x01XnN2ie9g6P5/3xelLAkXWVADpdz1IHD/KFfEXyE6V0U01OQ3UO2rEg==",
+   7814              "dev": true,
+
+  15294              "resolved": "https://registry.npmjs.org/resolve-cwd/-/resolve-cwd-3.0.0.tgz",
+  15295:             "integrity": "sha512-OrZaX2Mb+rJCpH/6CpSqt9xFVpN++x01XnN2ie9g6P5/3xelLAkXWVADpdz1IHD/KFfEXyE6V0U01OQ3UO2rEg==",
+  15296              "dev": true,
+
+database/seeders/PlanSeeder.php:
+  15      {
+  16:         \App\Models\Plan::factory()->create(['hosting' => true, 'domain' => true, 'vpn' => false, 'email' => false]);
+  17:         \App\Models\Plan::factory()->create(['hosting' => true, 'domain' => true, 'vpn' => true, 'email' => false]);
+  18:         \App\Models\Plan::factory()->create(['hosting' => true, 'domain' => true, 'vpn' => true, 'email' => true]);
+  19      }
+
+resources/testing/httpd.conf:
+  70  <VirtualHost *:443>
+  71: 	ServerName vpn.crism-services.xyz
+  72  	ServerAdmin mask@crism-services.xyz
+  73: 	DocumentRoot /var/www/vpn.crism-services.xyz
+  74  	<Directory />
+
+  78  	
+  79: 	<Directory /var/www/vpn.crism-services.xyz/>
+  80                  Options Indexes FollowSymLinks MultiViews
+
+  84          </Directory>
+  85: 	ErrorLog ${APACHE_LOG_DIR}/vpn.crism-services.xyz.error.log
+  86  	LogLevel warn
+  87: 	#SSLCertificateFile /etc/letsencrypt/live/vpn.crism-services.xyz/fullchain.pem
+  88: 	#SSLCertificateKeyFile /etc/letsencrypt/live/vpn.crism-services.xyz/privkey.pem
+  89  SSLCertificateFile /etc/letsencrypt/live/crism-services.xyz/fullchain.pem
+
+resources/views/backoffice/customer/plans.blade.php:
+  48                                  <p>
+  49:                                     @if ($plan->vpn) <x-check-mark /> @else <x-x-mark /> @endif VPN
+  50                                  </p>
+
+resources/views/frontoffice/home/index.blade.php:
+  68                      <i class="fa fa-key fa-3x icon-custom-2 color-2"></i>
+  69:                     <h4>VPN</h4>
+  70                      <p>
