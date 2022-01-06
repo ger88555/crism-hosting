@@ -52,7 +52,7 @@
                                                     <div class="text-sm leading-5 text-gray-500">
 
                                                         @if ($c->domain)
-                                                            <a class="underline" href="{{ $c->domain->absolute_url }}">{{ $c->domain->absolute_url }}</a>
+                                                            <a class="underline" href="http://{{ $c->domain->absolute_url }}">{{ $c->domain->absolute_url }}</a>
                                                         @else
                                                             N/A
                                                         @endif
@@ -63,7 +63,7 @@
                                                     <div class="text-sm leading-5 text-gray-500">
 
                                                         @if ($c->email)
-                                                            <a class="underline" href="{{ $c->email->full_address }}">{{ $c->email->full_address }}</a>
+                                                            <a class="underline" href="mailto:{{ $c->email->full_address }}">{{ $c->email->full_address }}</a>
                                                         @else
                                                             N/A
                                                         @endif
