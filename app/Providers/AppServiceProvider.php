@@ -8,6 +8,8 @@ use App\Repositories\ApacheHostingRepository;
 use App\Repositories\Contracts\DomainRepository;
 use App\Repositories\Contracts\HostingRepository;
 use App\Repositories\Contracts\FTPRepository;
+use App\Repositories\Contracts\MailAccountRepository;
+use App\Repositories\PostfixMailAccountRepository;
 use App\Services\SystemCommandService;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
         DomainRepository::class     => ApacheDomainRepository::class,
         HostingRepository::class    => ApacheHostingRepository::class,
         FTPRepository::class        => VSFTPRepository::class,
+        MailAccountRepository::class  => PostfixMailAccountRepository::class,
     ];
 
     /**
