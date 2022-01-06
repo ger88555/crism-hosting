@@ -9,7 +9,7 @@ class Wireguard extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['generated_public_key','ready','customer_id','qrString'];
+    protected $fillable = ['generated_public_key','ready','customer_id','ip'];
     
     protected $casts = [
         'ready' => 'boolean'
