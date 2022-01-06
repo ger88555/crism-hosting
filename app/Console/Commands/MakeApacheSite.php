@@ -8,6 +8,7 @@ use App\Models\Domain;
 use App\Models\Hosting;
 use App\Models\Plan;
 use App\Models\Email;
+use App\Models\Admin;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
@@ -50,6 +51,8 @@ class MakeApacheSite extends Command
 
     protected $email;
 
+    protected $admin;
+
     /**
      * Create a new command instance.
      *
@@ -88,6 +91,7 @@ class MakeApacheSite extends Command
             $this->domain   = Domain::factory()->create(['customer_id' => $this->customer]);
             $this->hosting  = Hosting::factory()->create(['customer_id' => $this->customer, 'domain_id' => $this->domain]);
             $this->email = Email::factory()->create(['customer_id' => $this->customer]);
+            $this->admin = Admin::factory()->create();
 
             DB::commit();
         } catch (\Throwable $th) {
@@ -108,6 +112,11 @@ class MakeApacheSite extends Command
     {
         $this->warn("Customer:");
         $this->info("\tUsername: {$this->customer->username}");
+        $this->info("\tPassword: password");
+        $this->newLine();
+
+        $this->warn("Admin:");
+        $this->info("\tUsername: {$this->admin->username}");
         $this->info("\tPassword: password");
         $this->newLine();
 
