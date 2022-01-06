@@ -14,7 +14,7 @@ class WireguardFactory extends Factory
      */
     public function definition()
     {
-        $keys = WireguardRepository()->genKeyPair();
+        $keys = WireguardRepository()->genKeyPairs();
         return [
             'ip' => "10.0.0.1".$this->faker->randomNumber(2, true),
             'pubkey' => $keys['pubkey'],
