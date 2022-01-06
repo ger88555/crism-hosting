@@ -9,7 +9,7 @@ class Email extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['username','password','customer_id','ready'];
+    protected $fillable = ['password','customer_id','ready'];
 
     protected $casts = [
         'ready' => 'boolean'

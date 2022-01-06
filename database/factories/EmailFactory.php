@@ -16,7 +16,6 @@ class EmailFactory extends Factory
     public function definition()
     {
         return [
-            'username'      => $this->faker->word . $this->faker->numerify('####') ,
             'password'      => $this->faker->numerify('########')
         ];
     }
