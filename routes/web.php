@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\SelectedPlanController;
 use App\Http\Controllers\ShowCustomerDashboardController;
+use App\Http\Controllers\ShowAdminDashboardController;
 
 Route::name('frontoffice.')->group(function() {
     Route::view('/', 'frontoffice.home.index')->name('home');
@@ -37,6 +38,11 @@ Route::name('customer.')->middleware('auth:customer')->group( function () {
             Route::post('/{plan}', [SelectedPlanController::class, 'store'])->name('store');
         });
     });
+});
+
+Route::name('admin.')->middleware('auth:admin')->group( function () {
+
+    Route::get('/administracion', ShowAdminDashboardController::class)->name('dashboard');
 });
 
 require __DIR__.'/auth.php';
