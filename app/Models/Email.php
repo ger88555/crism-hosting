@@ -19,4 +19,14 @@ class Email extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
+    /**
+     * Get the username in the conventional e-mail address format.
+     *
+     * @return void
+     */
+    public function getFullAddressAttribute()
+    {
+        return $this->username.'@'.app('services.apache.domain');
+    }
 }
