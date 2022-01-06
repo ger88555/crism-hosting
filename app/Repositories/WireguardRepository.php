@@ -21,8 +21,8 @@ class WireguardRepository extends WireguardContract{
             app(SystemCommandService::class)->run("qrencode ${$text} -o - | base64");
     }
     
-    function generateConfig($privatekey): string {
-        return view('tunnel', [$privkey => $privatekey, $ip => $this->wireguard->ip])->render();
+    function generateConfig(): string {
+        return view('tunnel', [$privkey => $this->wireguard->privkey, $ip => $this->wireguard->ip])->render();
     }
 
     function registerPeer(){
