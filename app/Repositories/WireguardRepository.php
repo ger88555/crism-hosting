@@ -9,7 +9,7 @@ class WireguardRepository extends WireguardContract{
 
     function generateKeyPairs(){
         $private_key = app(SystemCommandService::class)->run("wg genkey");
-        $public_key = app(SystemCommandService::class)->run("wg genkey ${$privkey}");
+        $public_key = app(SystemCommandService::class)->run("wg genkey ${$private_key}");
         return [
             $privkey => $private_key,
             $pubkey => $public_key
