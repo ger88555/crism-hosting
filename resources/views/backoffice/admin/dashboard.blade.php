@@ -50,12 +50,24 @@
                                             @if ($c->plan)
                                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                                     <div class="text-sm leading-5 text-gray-500">
-                                                        {{ $c->domain ? $c->domain->name        : 'N/A' }}
+
+                                                        @if ($c->domain)
+                                                            <a class="underline" href="{{ $c->domain->absolute_url }}">{{ $c->domain->absolute_url }}</a>
+                                                        @else
+                                                            N/A
+                                                        @endif
+
                                                     </div>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                                     <div class="text-sm leading-5 text-gray-500">
-                                                        {{ $c->email  ? $c->email->full_address : 'N/A' }}
+
+                                                        @if ($c->email)
+                                                            <a class="underline" href="{{ $c->email->full_address }}">{{ $c->email->full_address }}</a>
+                                                        @else
+                                                            N/A
+                                                        @endif
+
                                                     </div>
                                                 </td>
 

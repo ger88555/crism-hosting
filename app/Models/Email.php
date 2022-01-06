@@ -27,6 +27,6 @@ class Email extends Model
      */
     public function getFullAddressAttribute()
     {
-        return $this->username.'@'.app('services.apache.domain');
+        return $this->username.'@'.config('services.apache.domain');
     }
 }

@@ -19,4 +19,14 @@ class Domain extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
+    /**
+     * Get the absolute URL to this domain.
+     *
+     * @return void
+     */
+    public function getAbsoluteUrlAttribute()
+    {
+        return $this->name.'.'.config('services.apache.domain');
+    }
 }
