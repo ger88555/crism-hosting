@@ -18,7 +18,7 @@ class PlanFactory extends Factory
         return [
             'name'          => $this->faker->bs,
             'email'         => rand(0, 1),
-            'vpn'           => rand(0, 1),
+            'wireguard'           => rand(0, 1),
             'domain'        => rand(0, 1),
             'hosting'       => rand(0, 1),
             'hosting_space' => rand(1, 10) * self::GB
