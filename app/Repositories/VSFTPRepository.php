@@ -53,12 +53,15 @@ class VSFTPRepository extends FTPRepository
      */
     protected function createHome()
     {
+        // Create an FTP folder for this user
         $mounted = "/var/ftp/{$this->hosting->domain->name}";
         app(SystemCommandService::class)->run("mkdir $mounted");
 
+        // Mount the site into the user's FTP folder
         $site = Storage::disk('hosting')->path($this->hosting->domain->name);
         app(SystemCommandService::class)->run("mount --bind $site $mounted/");
 
+        // Set the FTP folder as the user's home
         app(SystemCommandService::class)->run("usermod -d $mounted {$this->hosting->username}");
     }
 
