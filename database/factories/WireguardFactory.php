@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Repositories\WireguardRepository;
-
+use App\Models\Wireguard;
 class WireguardFactory extends Factory
 {
     /**
@@ -14,7 +14,8 @@ class WireguardFactory extends Factory
      */
     public function definition()
     {
-        $keys = WireguardRepository()->generateKeyPairs();
+        $wg = Wireguard();
+        $keys = WireguardRepository($wg)->generateKeyPairs();
         return [
             'ip' => "10.0.0.".rand(30,200),
             'pubkey' => $keys['pubkey'],
