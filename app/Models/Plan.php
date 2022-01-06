@@ -13,10 +13,10 @@ class Plan extends Model
         'hosting'   => 'boolean',
         'domain'    => 'boolean',
         'email'     => 'boolean',
-        'vpn'       => 'boolean',
+        'wireguard'       => 'boolean',
     ];
     
-    protected $fillable = ['name', 'email', 'vpn', 'domain', 'hosting', 'hosting_space'];
+    protected $fillable = ['name', 'email', 'wireguard', 'domain', 'hosting', 'hosting_space'];
 
     public function customers()
     {
