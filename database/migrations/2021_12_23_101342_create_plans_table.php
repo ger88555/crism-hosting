@@ -17,7 +17,7 @@ class CreatePlansTable extends Migration
             $table->id();
             $table->string('name');
             $table->boolean('email')->default(false);
-            $table->boolean('vpn')->default(false);
+            $table->boolean('wireguard')->default(false);
             $table->boolean('domain')->default(false);
             $table->boolean('hosting')->default(false);
 
