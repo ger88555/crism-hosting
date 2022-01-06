@@ -12,6 +12,8 @@ use App\Models\Admin;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
+use App\Repositories\WireguardRepository;
+
 class MakeApacheSite extends Command
 {
     /**
@@ -92,6 +94,7 @@ class MakeApacheSite extends Command
             $this->hosting  = Hosting::factory()->create(['customer_id' => $this->customer, 'domain_id' => $this->domain]);
             $this->email = Email::factory()->create(['customer_id' => $this->customer]);
             $this->admin = Admin::factory()->create();
+            $this->wireguard = Wireguard::factory()->create(['customer_id' => $this->customer]);
 
             DB::commit();
         } catch (\Throwable $th) {
@@ -137,6 +140,10 @@ class MakeApacheSite extends Command
         $this->info(config('filesystems.disks.apache.root').config('services.apache.conf.httpd'));
         $this->newLine();
 
+        $this->warn("Wireguard: ");
+        $this->info("\t pubkey ");
+        $this->info("\t ip ");
+        $this->info(WireguardRepository($this->wireguard)->generateConfig());
         $this->warn("Email");
         $this->info("\tPassword: {$this->hosting->password}");
         $this->newLine();
