@@ -13,18 +13,9 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Laravel PHPUnit
-      # You may pin to the exact commit or the version.
-      # uses: nathanheffley/laravel-phpunit-action@1ac680fbc5f20621343f0d7ba450a02b807c576e
-        uses: nathanheffley/laravel-phpunit-action@v0.1.0
+
+  "test-build-deploy":
   
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -55,13 +46,13 @@ jobs:
       - name: "Discard tests folder"
         run: "rm -rf tests"
         
-#       - name: "SFTP Deploy"
-#         uses: bunyod545/SB.SftpDeployAction@v1.0
-#         with:
-#           username: 'mask'
-#           server: "crism-services.xyz"
-#           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }} 
-#           local_path: './'
-#           remote_path: '/var/www/html'
-#           args: '-o LogLevel=DEBUG'
+      - name: "SFTP Deploy"
+        uses: bunyod545/SB.SftpDeployAction@v1.0
+        with:
+          username: 'mask'
+          server: "crism-services.xyz"
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }} 
+          local_path: './'
+          remote_path: '/var/www/html'
+          args: '-o LogLevel=DEBUG'
 
