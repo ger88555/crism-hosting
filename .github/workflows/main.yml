@@ -38,7 +38,7 @@ jobs:
         run: "rm -rf .git"
           
       - name: "Discard storage folder"
-        run: "rm -rf storage"
+        run: "sudo rm -rf storage"
           
       - name: "Discard node_modules folder"
         run: "rm -rf node_modules"
