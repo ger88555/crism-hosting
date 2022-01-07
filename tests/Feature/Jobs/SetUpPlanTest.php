@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Jobs;
 
-use App\Repositories\Contracts\{ DomainRepository, HostingRepository, FTPRepository };
+use App\Repositories\Contracts\{ DomainRepository, HostingRepository, FTPRepository, MailAccountRepository};
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Models\{ Customer, Plan, Domain, Hosting };
+use App\Models\{ Customer, Plan, Domain, Email, Hosting };
 use App\Jobs\SetUpPlan;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -53,7 +53,7 @@ class SetUpPlanTest extends TestCase
     public function test_domain_created_when_included_in_plan()
     {
         // arrange
-        $plan = Plan::factory()->create(['domain' => true, 'hosting' => false]);
+        $plan = Plan::factory()->create(['domain' => true, 'hosting' => false, 'email' => false]);
         $customer = Customer::factory()->create(['plan_id' => $plan]);
         $domain = Domain::factory()->create(['customer_id' => $customer]);
 
@@ -70,7 +70,7 @@ class SetUpPlanTest extends TestCase
     public function test_domain_not_created_when_not_included_in_plan()
     {
         // arrange
-        $plan = Plan::factory()->create(['domain' => false, 'hosting' => false]);
+        $plan = Plan::factory()->create(['domain' => false, 'hosting' => false, 'email' => false]);
         $customer = Customer::factory()->create(['plan_id' => $plan]);
         $domain = Domain::factory()->create(['customer_id' => $customer]);
 
@@ -87,7 +87,7 @@ class SetUpPlanTest extends TestCase
     public function test_hosting_created_when_included_in_plan()
     {
         // arrange
-        $plan = Plan::factory()->create(['hosting' => true, 'domain' => false]);
+        $plan = Plan::factory()->create(['hosting' => true, 'domain' => false, 'email' => false]);
         $customer = Customer::factory()->create(['plan_id' => $plan]);
         $domain = Domain::factory()->create(['customer_id' => $customer]);
         $hosting = Hosting::factory()->create(['customer_id' => $customer, 'domain_id' => $domain]);
@@ -106,7 +106,7 @@ class SetUpPlanTest extends TestCase
     public function test_hosting_not_created_when_not_included_in_plan()
     {
         // arrange
-        $plan = Plan::factory()->create(['hosting' => false, 'domain' => false]);
+        $plan = Plan::factory()->create(['hosting' => false, 'domain' => false, 'email' => false]);
         $customer = Customer::factory()->create(['plan_id' => $plan]);
         $domain = Domain::factory()->create(['customer_id' => $customer]);
         $hosting = Hosting::factory()->create(['customer_id' => $customer, 'domain_id' => $domain]);
@@ -120,5 +120,39 @@ class SetUpPlanTest extends TestCase
 
         // assert
         $this->assertFalse($hosting->fresh()->ready);
+    }
+    
+    public function test_email_created_when_included_in_plan()
+    {
+        // arrange
+        $plan = Plan::factory()->create(['hosting' => false, 'domain' => false, 'email' => true]);
+        $customer = Customer::factory()->create(['plan_id' => $plan]);
+        $email = Email::factory()->create(['customer_id' => $customer]);
+
+        // assert
+        $this->expectRepositoryToReceive(MailAccountRepository::class, 'setEmail', $email);
+
+        // act
+        SetUpPlan::dispatchSync($customer);
+
+        // assert
+        $this->assertTrue($email->fresh()->ready);
+    }
+
+    public function test_email_not_created_when_not_included_in_plan()
+    {
+        // arrange
+        $plan = Plan::factory()->create(['hosting' => false, 'domain' => false, 'email' => false]);
+        $customer = Customer::factory()->create(['plan_id' => $plan]);
+        $email = Email::factory()->create(['customer_id' => $customer]);
+
+        // assert
+        $this->expectRepositoryNotToReceive(MailAccountRepository::class, 'setEmail', $email);
+
+        // act
+        SetUpPlan::dispatchSync($customer);
+
+        // assert
+        $this->assertFalse($email->fresh()->ready);
     }
 }
