@@ -13,9 +13,9 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+
+  "test-build-deploy":
+  
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -24,6 +24,9 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+          
+      - name: "Test"
+        uses: nathanheffley/laravel-phpunit-action@v0.1.0
         
       - name: "Install NPM dependencies"
         run: "npm ci"
